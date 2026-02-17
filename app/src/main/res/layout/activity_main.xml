@@ -5,18 +5,228 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity"
+    tools:layout_editor_absoluteX="27dp"
+    tools:layout_editor_absoluteY="-116dp">
 
     <TextView
+        android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Quiz Mind By Ringkhang"
-        android:textStyle="bold"
-        android:textSize="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Welcome to Quiz Mind \n By Ringkhang"
+        android:textSize="28sp"
+        android:textStyle="bold|italic"
+        android:fontFamily="@font/arial_rounded_bold"
+        app:layout_constraintBottom_toTopOf="@+id/scoreCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/scoreCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="434dp"
+        android:elevation="15dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/avgScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/arial_rounded_bold"
+                android:text="Avg Score 50"
+                app:layout_constraintBottom_toBottomOf="@+id/totalQuiz"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/totalQuiz"
+                app:layout_constraintTop_toTopOf="@+id/totalQuiz" />
+
+            <TextView
+                android:id="@+id/totalQuiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/arial_rounded_bold"
+                android:layout_marginRight="20dp"
+                android:text="Total Quiz: 10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/avgScore"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.075" />
+
+            <TextView
+                android:id="@+id/levelEasy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Easy: 10"
+                android:fontFamily="@font/arial_rounded_bold"
+                app:layout_constraintEnd_toEndOf="@+id/totalQuiz"
+                app:layout_constraintStart_toStartOf="@+id/totalQuiz"
+                app:layout_constraintTop_toBottomOf="@+id/totalQuiz" />
+
+            <TextView
+                android:id="@+id/levelMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Medium: 10"
+                android:fontFamily="@font/arial_rounded_bold"
+                app:layout_constraintEnd_toEndOf="@+id/levelEasy"
+                app:layout_constraintStart_toStartOf="@+id/levelEasy"
+                app:layout_constraintTop_toBottomOf="@+id/levelEasy" />
+
+            <TextView
+                android:id="@+id/levelHard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hard: 10"
+                android:fontFamily="@font/arial_rounded_bold"
+                app:layout_constraintEnd_toEndOf="@+id/levelMedium"
+                app:layout_constraintStart_toStartOf="@+id/levelMedium"
+                app:layout_constraintTop_toBottomOf="@+id/levelMedium" />
+
+            <TextView
+                android:id="@+id/levelMaxPro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Pro+: 10"
+                android:fontFamily="@font/arial_rounded_bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/levelHard"
+                app:layout_constraintStart_toStartOf="@+id/levelHard"
+                app:layout_constraintTop_toBottomOf="@+id/levelHard" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/testText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/arial_rounded_bold"
+        android:text="Start new test here "
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/testStartFormBtn"
+        app:layout_constraintEnd_toEndOf="@+id/scoreCard"
+        app:layout_constraintStart_toStartOf="@+id/scoreCard"
+        app:layout_constraintTop_toBottomOf="@+id/scoreCard" />
+
+    <Button
+        android:id="@+id/testStartFormBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="START"
+        android:fontFamily="@font/arial_rounded_bold"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:backgroundTint="#ABA3A3"
+        app:layout_constraintEnd_toEndOf="@+id/testText"
+        app:layout_constraintStart_toStartOf="@+id/testText"
+        app:layout_constraintTop_toBottomOf="@+id/testText" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/botoomBtns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:elevation="15dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/historyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/btnTint"
+                android:text="HISTORY"
+                android:fontFamily="@font/arial_rounded_bold"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/homeBtn"
+                app:layout_constraintEnd_toStartOf="@+id/homeBtn"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/homeBtn" />
+
+            <Button
+                android:id="@+id/homeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/btnTint"
+                android:text="HOME"
+                android:fontFamily="@font/arial_rounded_bold"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/profileBtn"
+                app:layout_constraintEnd_toStartOf="@+id/profileBtn"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/historyBtn"
+                app:layout_constraintTop_toTopOf="@+id/profileBtn" />
+
+            <Button
+                android:id="@+id/profileBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="PROFILE"
+                android:fontFamily="@font/arial_rounded_bold"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:backgroundTint="@color/btnTint"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/homeBtn"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

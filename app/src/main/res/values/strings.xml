@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">QuizMind</string>
+
+    <string-array name="quiz_levels">
+        <item>Select hardness level</item>
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+        <item>Extra hard</item>
+    </string-array>
 </resources>
