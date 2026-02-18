@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        testStartBtn = findViewById(R.id.testStartFormBtn);
+        testStartBtn = findViewById(R.id.testInitiateBtn);
         testStartBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, TestFormActivity.class);
             startActivity(intent);

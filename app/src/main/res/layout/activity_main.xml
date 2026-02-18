@@ -14,14 +14,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="15dp"
+        android:fontFamily="@font/arial_rounded_bold"
         android:gravity="center"
         android:text="Welcome to Quiz Mind \n By Ringkhang"
         android:textSize="28sp"
         android:textStyle="bold|italic"
-        android:fontFamily="@font/arial_rounded_bold"
         app:layout_constraintBottom_toTopOf="@+id/scoreCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,112 +121,43 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/testText"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/arial_rounded_bold"
-        android:text="Start new test here "
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/testStartFormBtn"
-        app:layout_constraintEnd_toEndOf="@+id/scoreCard"
-        app:layout_constraintStart_toStartOf="@+id/scoreCard"
-        app:layout_constraintTop_toBottomOf="@+id/scoreCard" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreCard">
 
-    <Button
-        android:id="@+id/testStartFormBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="START"
-        android:fontFamily="@font/arial_rounded_bold"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:backgroundTint="#ABA3A3"
-        app:layout_constraintEnd_toEndOf="@+id/testText"
-        app:layout_constraintStart_toStartOf="@+id/testText"
-        app:layout_constraintTop_toBottomOf="@+id/testText" />
+        <include layout="@layout/activity_history_row" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/botoomBtns"
-        android:layout_width="wrap_content"
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        android:elevation="15dp"
-        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/include"
+            layout="@layout/bottom_buttons"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/historyBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:backgroundTint="@color/btnTint"
-                android:text="HISTORY"
-                android:fontFamily="@font/arial_rounded_bold"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/homeBtn"
-                app:layout_constraintEnd_toStartOf="@+id/homeBtn"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/homeBtn" />
-
-            <Button
-                android:id="@+id/homeBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:backgroundTint="@color/btnTint"
-                android:text="HOME"
-                android:fontFamily="@font/arial_rounded_bold"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/profileBtn"
-                app:layout_constraintEnd_toStartOf="@+id/profileBtn"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/historyBtn"
-                app:layout_constraintTop_toTopOf="@+id/profileBtn" />
-
-            <Button
-                android:id="@+id/profileBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="5dp"
-                android:text="PROFILE"
-                android:fontFamily="@font/arial_rounded_bold"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:backgroundTint="@color/btnTint"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/homeBtn"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+        </include>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

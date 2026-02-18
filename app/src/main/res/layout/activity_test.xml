@@ -7,8 +7,67 @@
     android:layout_height="match_parent"
     tools:context=".activities.TestActivity">
 
+    <LinearLayout
+        android:id="@+id/ll_progress_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/tv_progress_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_answered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="Answered:0"
+            android:textColor="#4CAF50"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_question_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="1 / 5"
+            android:textColor="#888888"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Left: 5"
+            android:textColor="#F44336"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/tv_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="15dp"
+        android:max="100"
+        android:progress="0"
+        android:progressBackgroundTint="#E0E0E0"
+        android:progressTint="#6C63FF"
+        app:layout_constraintBottom_toTopOf="@+id/tv_question_vp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/question_vp"
+        android:id="@+id/tv_question_vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -18,17 +77,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <LinearLayout
+        android:id="@+id/ll_nav_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question_vp">
+
+        <Button
+            android:id="@+id/pv_btn_previous"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#EEEEEE"
+            android:enabled="false"
+            android:fontFamily="@font/arial_rounded_bold"
+            android:text="Previous"
+            android:textColor="#333333" />
+
+        <Button
+            android:id="@+id/pv_btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#6C63FF"
+            android:fontFamily="@font/arial_rounded_bold"
+            android:text="Next"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/tv_btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="#6C63FF"
         android:fontFamily="@font/arial_rounded_bold"
         android:text="SUBMIT"
-        android:textSize="22dp"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/question_vp"
-        app:layout_constraintStart_toStartOf="@+id/question_vp"
-        app:layout_constraintTop_toBottomOf="@+id/question_vp" />
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_nav_buttons" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
