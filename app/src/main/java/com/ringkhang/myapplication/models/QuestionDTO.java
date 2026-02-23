@@ -1,6 +1,6 @@
 package com.ringkhang.myapplication.models;
 
-public class Question {
+public class QuestionDTO {
 
     private String question;
     private String optionA;
@@ -10,9 +10,9 @@ public class Question {
     private String answer;
     private String explanation;
 
-    public Question(String question, String optionA, String optionB,
-                    String optionC, String optionD,
-                    String answer, String explanation) {
+    public QuestionDTO(String question, String optionA, String optionB,
+                       String optionC, String optionD,
+                       String answer, String explanation) {
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;

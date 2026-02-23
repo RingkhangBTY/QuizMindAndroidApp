@@ -12,13 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ringkhang.myapplication.R;
-import com.ringkhang.myapplication.models.Question;
+import com.ringkhang.myapplication.models.QuestionDTO;
 
 import java.util.ArrayList;
 
 public class QuestionsVpAdapter extends RecyclerView.Adapter<QuestionsVpAdapter.MyQuestionViewHolder> {
 
-    private final ArrayList<Question> questions;
+    private final ArrayList<QuestionDTO> questions;
     private final Context context;
     private final OnAnswerChangedListener listener;
 
@@ -29,7 +29,7 @@ public class QuestionsVpAdapter extends RecyclerView.Adapter<QuestionsVpAdapter.
         void onAnswerChanged();
     }
 
-    public QuestionsVpAdapter(ArrayList<Question> questions, Context context, OnAnswerChangedListener listener) {
+    public QuestionsVpAdapter(ArrayList<QuestionDTO> questions, Context context, OnAnswerChangedListener listener) {
         this.questions   = questions;
         this.context     = context;
         this.listener    = listener;
@@ -46,7 +46,7 @@ public class QuestionsVpAdapter extends RecyclerView.Adapter<QuestionsVpAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyQuestionViewHolder holder, int position) {
-        Question q = questions.get(position);
+        QuestionDTO q = questions.get(position);
 
         holder.question.setText("Q" + (position + 1) + ": " + q.getQuestion());
         holder.opA.setText("A: " + q.getOptionA());

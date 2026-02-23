@@ -11,17 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ringkhang.myapplication.R;
-import com.ringkhang.myapplication.models.Question;
+import com.ringkhang.myapplication.models.QuestionDTO;
 
 import java.util.ArrayList;
 
 public class TestReviewVPAdapter extends RecyclerView.Adapter<TestReviewVPAdapter.MyTestReviewViewHolder> {
 
-    private final ArrayList<Question> questions;
+    private final ArrayList<QuestionDTO> questions;
     private final int[] userAnswers;   // 0–3 = selected option, -1 = unanswered
     private final Context context;
 
-    public TestReviewVPAdapter(Context context, ArrayList<Question> questions, int[] userAnswers) {
+    public TestReviewVPAdapter(Context context, ArrayList<QuestionDTO> questions, int[] userAnswers) {
         this.context     = context;
         this.questions   = questions;
         this.userAnswers = userAnswers;
@@ -37,7 +37,7 @@ public class TestReviewVPAdapter extends RecyclerView.Adapter<TestReviewVPAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyTestReviewViewHolder holder, int position) {
-        Question q          = questions.get(position);
+        QuestionDTO q          = questions.get(position);
         int      userChoice = userAnswers[position];   // -1 if skipped
 
         // Question
@@ -92,7 +92,7 @@ public class TestReviewVPAdapter extends RecyclerView.Adapter<TestReviewVPAdapte
     }
 
     /** Returns the 0-based index of the correct option by matching the correct answer string */
-    private int getCorrectIndex(Question q) {
+    private int getCorrectIndex(QuestionDTO q) {
         String correct = q.getAnswer();
         if (correct.equals(q.getOptionA())) return 0;
         if (correct.equals(q.getOptionB())) return 1;

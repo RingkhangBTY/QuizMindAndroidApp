@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.ringkhang.myapplication.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Button testStartBtn;
+    private Button testStartBtn,historyDisBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +25,22 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setUpViews();
 
-        testStartBtn = findViewById(R.id.testInitiateBtn);
         testStartBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, TestFormActivity.class);
             startActivity(intent);
         });
+
+        historyDisBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            startActivity(intent);
+        });
+    }
+
+
+    private void setUpViews(){
+        testStartBtn = findViewById(R.id.testInitiateBtn);
+        historyDisBtn = findViewById(R.id.historyBtn);
     }
 }
