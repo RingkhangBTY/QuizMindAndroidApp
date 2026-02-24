@@ -2,23 +2,6 @@
 
 An AI-powered quiz app for students built with **Android (Java)** and **Spring Boot**, where users can generate custom tests on any topic, review answers with explanations, and track their performance history.
 
----
-
-## 📱 App Screenshots
-
-| Home | History |
-|------|---------|
-| ![Home](screen_home.jpeg) | ![History](screen_history.jpeg) |
-
-| Test Form | Test Screen |
-|-----------|------------|
-| ![Test Form](screen_test_form.jpeg) | ![Test](screen_test.jpeg) |
-
-| Review |
-|--------|
-| ![Review](screen_review.jpeg) |
-
----
 
 ## ✨ Features
 
@@ -34,7 +17,6 @@ An AI-powered quiz app for students built with **Android (Java)** and **Spring B
 ---
 
 ## 🏗️ Tech Stack
-
 ### Android
 | What | Tech |
 |------|------|
@@ -183,3 +165,21 @@ implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
 
 **Ringkhang**  
 Built with ☕ Java + Spring Boot + PostgreSQL
+
+---
+
+## 📱 App Screenshots
+
+| Home | History |
+|------|---------|
+| ![Home](screen_home.jpeg) | ![History](screen_history.jpeg) |
+
+| Test Form | Test Screen |
+|-----------|------------|
+| ![Test Form](screen_test_form.jpeg) | ![Test](screen_test.jpeg) |
+
+| Review |
+|--------|
+| ![Review](screen_review.jpeg) |
+
+---
