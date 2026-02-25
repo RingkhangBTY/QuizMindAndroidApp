@@ -14,7 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.ringkhang.myapplication.R;
 import com.ringkhang.myapplication.adapters.TestReviewVPAdapter;
-import com.ringkhang.myapplication.models.QuestionDTO;
+import com.ringkhang.myapplication.models_DTO.QuestionDTO;
 
 import java.util.ArrayList;
 

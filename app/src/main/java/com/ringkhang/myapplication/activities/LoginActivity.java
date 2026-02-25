@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ringkhang.myapplication.R;
-import com.ringkhang.myapplication.models.UserDetailsTable;
+import com.ringkhang.myapplication.models_DTO.UserDetailsTable;
 import com.ringkhang.myapplication.network.AuthApiService;
 import com.ringkhang.myapplication.network.RetrofitClient;
 import com.ringkhang.myapplication.utils.SessionManager;

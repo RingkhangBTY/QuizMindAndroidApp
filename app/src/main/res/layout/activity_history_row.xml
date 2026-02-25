@@ -36,7 +36,7 @@
                 android:id="@+id/hisDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="21 May, 10:30 AM"
+                android:text="00 Jan, 00:00 AM"
                 android:textSize="11sp"
                 android:textColor="#999999" />
 
@@ -76,7 +76,7 @@
                     android:id="@+id/histTotalQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"
+                    android:text="00"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#1A1A1A" />
@@ -101,7 +101,7 @@
                     android:id="@+id/hisCorrectAns"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4"
+                    android:text="00"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#4CAF50" />
@@ -126,7 +126,7 @@
                     android:id="@+id/hisTestScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="80%"
+                    android:text="00%"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#6C63FF" />
@@ -151,7 +151,7 @@
                     android:id="@+id/histQLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hard"
+                    android:text="----"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#FF9800" />

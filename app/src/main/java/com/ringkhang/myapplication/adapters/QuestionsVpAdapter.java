@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ringkhang.myapplication.R;
-import com.ringkhang.myapplication.models.QuestionDTO;
+import com.ringkhang.myapplication.models_DTO.QuestionDTO;
 
 import java.util.ArrayList;
 

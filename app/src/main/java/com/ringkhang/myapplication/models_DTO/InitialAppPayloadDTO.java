@@ -1,4 +1,4 @@
-package com.ringkhang.myapplication.models;
+package com.ringkhang.myapplication.models_DTO;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,6 +6,9 @@ public class InitialAppPayloadDTO {
 
     @SerializedName("userDetailsDTO")
     private UserDetailsDTO userDetailsDTO;
+
+    @SerializedName("scoreHistoryDisplay")
+    private ScoreHistoryDisplay scoreHistoryDisplay;
 
     @SerializedName("totalQuizAttempts")
     private int totalQuizAttempts;
@@ -26,6 +29,9 @@ public class InitialAppPayloadDTO {
     private int hardPlusQuizCount;
 
     public UserDetailsDTO getUserDetailsDTO()  { return userDetailsDTO; }
+
+    public ScoreHistoryDisplay getScoreHistoryDisplay() { return scoreHistoryDisplay; }
+
     public int getTotalQuizAttempts()          { return totalQuizAttempts; }
     public float getAvgScore()                 { return avgScore; }
     public int getEasyQuizCount()              { return easyQuizCount; }

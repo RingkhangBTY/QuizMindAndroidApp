@@ -1,28 +1,38 @@
-package com.ringkhang.myapplication.models;
+package com.ringkhang.myapplication.models_DTO;
 
-import java.time.LocalDateTime;
+import com.google.gson.annotations.SerializedName;
 
-public class HistoryDTO {
+
+public class ScoreHistoryDisplay {
+
+    @SerializedName("quizHistoryId")
+    private int quizHistoryId;
+    @SerializedName("username")
     private String username;
+    @SerializedName("total_question")
     private int total_question;
-    private int correct_ans;
-    private int test_score;
-    private String feedback;
-    private String topic_sub;
-    private  String level;
-    private  String short_des;
-    private LocalDateTime time_stamp;
 
-    public HistoryDTO(String username, int total_question, int correct_ans, int test_score, String feedback, String topic_sub, String level, String short_des, LocalDateTime time_stamp) {
-        this.username = username;
-        this.total_question = total_question;
-        this.correct_ans = correct_ans;
-        this.test_score = test_score;
-        this.feedback = feedback;
-        this.topic_sub = topic_sub;
-        this.level = level;
-        this.short_des = short_des;
-        this.time_stamp = time_stamp;
+    @SerializedName("correct_ans")
+    private int correct_ans;
+
+    @SerializedName("test_score")
+    private int test_score;
+
+    @SerializedName("feedback")
+    private String feedback;
+
+    @SerializedName("topic_sub")
+    private String topic_sub;
+
+    @SerializedName("level")
+    private  String level;
+    @SerializedName("short_des")
+    private  String short_des;
+    @SerializedName("time_stamp")
+    private String time_stamp;
+
+    public int getQuizHistoryId() {
+        return quizHistoryId;
     }
 
     public String getUsername() {
@@ -57,7 +67,7 @@ public class HistoryDTO {
         return short_des;
     }
 
-    public LocalDateTime getTime_stamp() {
+    public String getTime_stamp() {
         return time_stamp;
     }
 }

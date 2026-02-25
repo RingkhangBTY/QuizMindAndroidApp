@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ringkhang.myapplication.R;
 import com.ringkhang.myapplication.adapters.HistoryDisplayAdapter;
-import com.ringkhang.myapplication.models.HistoryDTO;
+import com.ringkhang.myapplication.models_DTO.HistoryDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

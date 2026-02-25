@@ -5,9 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity"
-    tools:layout_editor_absoluteX="27dp"
-    tools:layout_editor_absoluteY="-116dp">
+    tools:context=".activities.MainActivity">
+
+    <ImageButton
+        android:id="@+id/logoutBtn"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="14dp"
+        android:src="@android:drawable/ic_lock_power_off"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Logout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="#522B29" />
 
     <TextView
         android:id="@+id/welcomeText"
@@ -49,7 +60,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/arial_rounded_bold"
-                android:text="Avg Score 50"
+                android:text="Avg Score: 00"
                 app:layout_constraintBottom_toBottomOf="@+id/totalQuiz"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/totalQuiz"
@@ -62,9 +73,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/arial_rounded_bold"
                 android:layout_marginRight="20dp"
-                android:text="Total Quiz: 10"
+                android:fontFamily="@font/arial_rounded_bold"
+                android:text="Total Quiz: 00"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/avgScore"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Easy: 10"
                 android:fontFamily="@font/arial_rounded_bold"
+                android:text="Easy: 00"
                 app:layout_constraintEnd_toEndOf="@+id/totalQuiz"
                 app:layout_constraintStart_toStartOf="@+id/totalQuiz"
                 app:layout_constraintTop_toBottomOf="@+id/totalQuiz" />
@@ -87,8 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Medium: 10"
                 android:fontFamily="@font/arial_rounded_bold"
+                android:text="Medium: 00"
                 app:layout_constraintEnd_toEndOf="@+id/levelEasy"
                 app:layout_constraintStart_toStartOf="@+id/levelEasy"
                 app:layout_constraintTop_toBottomOf="@+id/levelEasy" />
@@ -98,8 +109,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Hard: 10"
                 android:fontFamily="@font/arial_rounded_bold"
+                android:text="Hard: 00"
                 app:layout_constraintEnd_toEndOf="@+id/levelMedium"
                 app:layout_constraintStart_toStartOf="@+id/levelMedium"
                 app:layout_constraintTop_toBottomOf="@+id/levelMedium" />
@@ -110,8 +121,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Pro+: 10"
                 android:fontFamily="@font/arial_rounded_bold"
+                android:text="Pro+: 00"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/levelHard"
                 app:layout_constraintStart_toStartOf="@+id/levelHard"
@@ -154,10 +165,8 @@
             android:id="@+id/include"
             layout="@layout/bottom_buttons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" />
 
-        </include>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

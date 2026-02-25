@@ -1,12 +1,9 @@
 package com.ringkhang.myapplication.network;
 
-import com.ringkhang.myapplication.models.InitialAppPayloadDTO;
-import com.ringkhang.myapplication.models.UserDetailsDTO;
-import com.ringkhang.myapplication.models.UserDetailsTable;
+import com.ringkhang.myapplication.models_DTO.UserDetailsTable;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -22,12 +19,4 @@ public interface AuthApiService {
             @Query("username") String username,
             @Query("pass") String pass
     );
-
-    // GET /users — returns current user (JWT required)
-    @GET("users")
-    Call<UserDetailsDTO> getUserDetails();
-
-    // GET /initial_data — full dashboard payload (JWT required)
-    @GET("initial_data")
-    Call<InitialAppPayloadDTO> getInitialData();
 }

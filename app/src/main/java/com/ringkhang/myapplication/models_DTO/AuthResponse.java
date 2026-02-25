@@ -1,4 +1,4 @@
-package com.ringkhang.myapplication.models;
+package com.ringkhang.myapplication.models_DTO;
 
 import com.google.gson.annotations.SerializedName;
 
