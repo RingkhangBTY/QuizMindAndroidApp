@@ -2,7 +2,7 @@ package com.ringkhang.myapplication.models_DTO;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserDetailsDTO {
+public class UserDetails {
 
     @SerializedName("id")
     private int id;

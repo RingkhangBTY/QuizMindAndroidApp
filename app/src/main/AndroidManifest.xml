@@ -19,7 +19,7 @@
 
         <!-- ✅ LoginActivity is now the first screen -->
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,20 +29,20 @@
 
         <!-- MainActivity is no longer the launcher -->
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
 
         <activity
-            android:name=".activities.TestActivity"
+            android:name=".ui.TestActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.TestFormActivity"
+            android:name=".ui.TestFormActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.TestReviewActivity"
+            android:name=".ui.TestReviewActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.HistoryActivity"
+            android:name=".ui.HistoryActivity"
             android:exported="false" />
 
     </application>

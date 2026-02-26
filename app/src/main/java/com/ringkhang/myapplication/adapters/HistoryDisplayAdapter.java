@@ -10,16 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ringkhang.myapplication.R;
-import com.ringkhang.myapplication.models_DTO.HistoryDTO;
+import com.ringkhang.myapplication.DTO.HistoryDTO;
+import com.ringkhang.myapplication.models_DTO.ScoreHistoryDisplay;
 
 import java.util.ArrayList;
 
 public class HistoryDisplayAdapter extends RecyclerView.Adapter<HistoryDisplayAdapter.MyHistoryDisViewHolder> {
 
-    private ArrayList<HistoryDTO> historyArrayList;
+    private ArrayList<ScoreHistoryDisplay> historyArrayList;
     private Context context;
 
-    public HistoryDisplayAdapter(ArrayList<HistoryDTO> historyArrayList, Context context) {
+    public HistoryDisplayAdapter(ArrayList<ScoreHistoryDisplay> historyArrayList, Context context) {
         this.historyArrayList = historyArrayList;
         this.context = context;
     }
@@ -33,7 +34,7 @@ public class HistoryDisplayAdapter extends RecyclerView.Adapter<HistoryDisplayAd
 
     @Override
     public void onBindViewHolder(@NonNull MyHistoryDisViewHolder holder, int position) {
-        HistoryDTO history = historyArrayList.get(position);
+        ScoreHistoryDisplay history = historyArrayList.get(position);
 
         holder.topic.setText(history.getTopic_sub());
         holder.description.setText(history.getShort_des());
@@ -44,7 +45,7 @@ public class HistoryDisplayAdapter extends RecyclerView.Adapter<HistoryDisplayAd
         holder.correct.setText(String.valueOf(history.getCorrect_ans()));
         holder.score.setText(String.valueOf(history.getTest_score()));
 
-        holder.dateTime.setText(history.getTime_stamp().toString());
+        holder.dateTime.setText(history.getTime_stamp());
     }
 
     @Override

@@ -56,4 +56,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
 
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+
+    // SwipeRefreshLayout --> To make refreshable UI's
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 }

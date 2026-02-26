@@ -1,4 +1,4 @@
-package com.ringkhang.myapplication.models_DTO;
+package com.ringkhang.myapplication.DTO;
 
 import java.time.LocalDateTime;
 

@@ -1,7 +1,10 @@
-package com.ringkhang.myapplication.activities;
+package com.ringkhang.myapplication.ui;
+
+import static androidx.core.content.PackageManagerCompat.LOG_TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -13,20 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ringkhang.myapplication.R;
-import com.ringkhang.myapplication.models_DTO.InitialAppPayloadDTO;
+import com.ringkhang.myapplication.data.HomeUiDatasource;
+import com.ringkhang.myapplication.data.MyDataResponseCallBack;
+import com.ringkhang.myapplication.models_DTO.InitialAppPayload;
 import com.ringkhang.myapplication.models_DTO.ScoreHistoryDisplay;
-import com.ringkhang.myapplication.network.HomeApiService;
-import com.ringkhang.myapplication.network.RetrofitClient;
 import com.ringkhang.myapplication.utils.SessionManager;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             hisTopic, hisDescription, hisDateTime, histTotalQuestion, hisCorrectAns, hisTestScore,
             histQLevel, hisTestFeedback;
 
-    private HomeApiService homeApiService;
+    private HomeUiDatasource homeUiDatasource ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,48 +49,42 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        homeUiDatasource = new HomeUiDatasource(MainActivity.this);
+
         setUpViews();
+
         setInitialListeners();
 
-        homeApiService = RetrofitClient.getInstance(MainActivity.this).create(HomeApiService.class);
-        getInitialMainData(false);
+        getInitialAppData();
+
     }
 
-    // ── API ───────────────────────────────────────────────────
-
-    private void getInitialMainData(boolean isRetry) {
-        homeApiService.getInitialData().enqueue(new Callback<InitialAppPayloadDTO>() {
+    private void getInitialAppData(){
+        homeUiDatasource.getInitialMainData(false, new MyDataResponseCallBack<InitialAppPayload>() {
             @Override
-            public void onResponse(Call<InitialAppPayloadDTO> call, Response<InitialAppPayloadDTO> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    setInitialMainData(response.body());
-                } else if (response.code() == 401) {
-                    Toast.makeText(MainActivity.this,
-                            "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
-                    goToLogin();
-                } else {
-                    Toast.makeText(MainActivity.this,
-                            "Failed to load user data.", Toast.LENGTH_SHORT).show();
+            public void onSuccess(InitialAppPayload data) {
+                setInitialMainData(data);
+            }
+
+            @Override
+            public void onError(int errorCode, String massage) {
+                if (errorCode == 401){
+                    Toast.makeText(MainActivity.this,"Fails to authenticate user",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(MainActivity.this,massage,Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<InitialAppPayloadDTO> call, Throwable t) {
-                if (!isRetry) {
-                    RetrofitClient.reset(MainActivity.this);
-                    Toast.makeText(MainActivity.this, "Reconnecting...", Toast.LENGTH_SHORT).show();
-                    getInitialMainData(true);
-                } else {
-                    Toast.makeText(MainActivity.this,
-                            "Failed to fetch user data!!", Toast.LENGTH_SHORT).show();
-                    Logger.getLogger(MainActivity.class.getName())
-                            .log(Level.SEVERE, "Failed to fetch user data from DB");
-                }
+            public void onFailure(Throwable t) {
+                Logger.getLogger(MainActivity.class.getName()).log(
+                        Level.SEVERE,t.getCause().toString()
+                );
             }
         });
     }
 
-    private void setInitialMainData(InitialAppPayloadDTO initialMainData) {
+    private void setInitialMainData(InitialAppPayload initialMainData) {
         welcomeText.setText("Welcome to Quiz Mind\nMr/Ms " + initialMainData.getUserDetailsDTO().getUsername());
 
         totalQuiz.setText("Total quiz: " + initialMainData.getTotalQuizAttempts());

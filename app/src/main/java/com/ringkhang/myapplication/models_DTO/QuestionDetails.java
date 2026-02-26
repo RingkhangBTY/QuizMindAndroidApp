@@ -1,6 +1,8 @@
 package com.ringkhang.myapplication.models_DTO;
 
-public class QuestionDTO {
+import java.io.Serializable;
+
+public class QuestionDetails implements Serializable {
 
     private String question;
     private String optionA;
@@ -10,9 +12,9 @@ public class QuestionDTO {
     private String answer;
     private String explanation;
 
-    public QuestionDTO(String question, String optionA, String optionB,
-                       String optionC, String optionD,
-                       String answer, String explanation) {
+    public QuestionDetails(String question, String optionA, String optionB,
+                           String optionC, String optionD,
+                           String answer, String explanation) {
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;

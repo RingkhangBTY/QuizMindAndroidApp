@@ -2,10 +2,10 @@ package com.ringkhang.myapplication.models_DTO;
 
 import com.google.gson.annotations.SerializedName;
 
-public class InitialAppPayloadDTO {
+public class InitialAppPayload {
 
     @SerializedName("userDetailsDTO")
-    private UserDetailsDTO userDetailsDTO;
+    private UserDetails userDetailsDTO;
 
     @SerializedName("scoreHistoryDisplay")
     private ScoreHistoryDisplay scoreHistoryDisplay;
@@ -28,7 +28,7 @@ public class InitialAppPayloadDTO {
     @SerializedName("hardPlusQuizCount")
     private int hardPlusQuizCount;
 
-    public UserDetailsDTO getUserDetailsDTO()  { return userDetailsDTO; }
+    public UserDetails getUserDetailsDTO()  { return userDetailsDTO; }
 
     public ScoreHistoryDisplay getScoreHistoryDisplay() { return scoreHistoryDisplay; }
 

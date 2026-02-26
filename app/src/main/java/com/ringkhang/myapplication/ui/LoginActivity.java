@@ -1,4 +1,4 @@
-package com.ringkhang.myapplication.activities;
+package com.ringkhang.myapplication.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,
                             "Register failed: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
+//                return null;
             }
 
             @Override
