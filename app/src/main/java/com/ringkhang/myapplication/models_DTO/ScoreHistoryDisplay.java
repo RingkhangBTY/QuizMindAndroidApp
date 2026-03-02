@@ -2,8 +2,10 @@ package com.ringkhang.myapplication.models_DTO;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 
-public class ScoreHistoryDisplay {
+
+public class ScoreHistoryDisplay implements Serializable {
 
     @SerializedName("quizHistoryId")
     private int quizHistoryId;

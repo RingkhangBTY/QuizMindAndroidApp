@@ -2,12 +2,14 @@ package com.ringkhang.myapplication.models_DTO;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserInForQuizTest {
+import java.io.Serializable;
+
+public class UserInForQuizTest implements Serializable {
     @SerializedName("programmingLanguage_Subject")
     private String programmingLanguage_Subject;
     @SerializedName("shortDes_Topic_Concepts")
     private String shortDes_Topic_Concepts;
-    @SerializedName("Level")
+    @SerializedName("level")
     private String level;
     @SerializedName("noOfQ")
     private int noOfQ;

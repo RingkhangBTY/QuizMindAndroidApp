@@ -3,6 +3,7 @@ package com.ringkhang.myapplication.data;
 import android.content.Context;
 
 import com.ringkhang.myapplication.models_DTO.ScoreHistoryDisplay;
+import com.ringkhang.myapplication.models_DTO.TestReview;
 import com.ringkhang.myapplication.network.HistoryApiService;
 import com.ringkhang.myapplication.network.RetrofitClient;
 
@@ -44,6 +45,26 @@ public class HistoryUiDatasource {
                                 .log(
                                         Level.SEVERE,"Failed to load data from SERVER"
                                 );
+                    }
+                });
+    }
+
+    public void getTestReviewData(MyDataResponseCallBack<TestReview> callBack,int hisId){
+        historyApiService.getTestReviewDetails(hisId)
+                .enqueue(new Callback<TestReview>() {
+                    @Override
+                    public void onResponse(Call<TestReview> call, Response<TestReview> response) {
+
+                        if (response.isSuccessful() && response.body()!=null){
+                            callBack.onSuccess(response.body());
+                        }else {
+                            callBack.onError(response.code(),"Unable to fetch review data!...");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TestReview> call, Throwable t) {
+                        callBack.onFailure(t);
                     }
                 });
     }

@@ -1,10 +1,8 @@
 package com.ringkhang.myapplication.ui;
 
-import static androidx.core.content.PackageManagerCompat.LOG_TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,13 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ringkhang.myapplication.R;
+import com.ringkhang.myapplication.data.HistoryUiDatasource;
 import com.ringkhang.myapplication.data.HomeUiDatasource;
 import com.ringkhang.myapplication.data.MyDataResponseCallBack;
 import com.ringkhang.myapplication.models_DTO.InitialAppPayload;
 import com.ringkhang.myapplication.models_DTO.ScoreHistoryDisplay;
+import com.ringkhang.myapplication.models_DTO.TestReview;
 import com.ringkhang.myapplication.utils.SessionManager;
 
 import java.util.logging.Level;
@@ -30,13 +29,15 @@ import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button testStartBtn, historyDisBtn;
+    private Button testStartBtn, historyDisBtn, histReview;
     private ImageButton logoutBtn;
     private TextView welcomeText, avgScore, totalQuiz, levelEasy, levelMedium, levelHard, levelMaxPro,
             hisTopic, hisDescription, hisDateTime, histTotalQuestion, hisCorrectAns, hisTestScore,
             histQLevel, hisTestFeedback;
 
     private HomeUiDatasource homeUiDatasource ;
+    private HistoryUiDatasource historyUiDatasource;
+    private InitialAppPayload initialAppPayload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +51,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         homeUiDatasource = new HomeUiDatasource(MainActivity.this);
+        historyUiDatasource = new HistoryUiDatasource(MainActivity.this);
 
         setUpViews();
-
         setInitialListeners();
-
         getInitialAppData();
 
     }
@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
         homeUiDatasource.getInitialMainData(false, new MyDataResponseCallBack<InitialAppPayload>() {
             @Override
             public void onSuccess(InitialAppPayload data) {
-                setInitialMainData(data);
+                initialAppPayload = data;
+                setInitialMainData();
             }
 
             @Override
@@ -84,17 +85,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setInitialMainData(InitialAppPayload initialMainData) {
-        welcomeText.setText("Welcome to Quiz Mind\nMr/Ms " + initialMainData.getUserDetailsDTO().getUsername());
+    private void setInitialMainData() {
 
-        totalQuiz.setText("Total quiz: " + initialMainData.getTotalQuizAttempts());
-        avgScore.setText("Avg Score: " + initialMainData.getAvgScore());
-        levelEasy.setText("Easy: " + initialMainData.getEasyQuizCount());
-        levelMedium.setText("Medium: " + initialMainData.getMediumQuizCount());
-        levelHard.setText("Hard: " + initialMainData.getHardQuizCount());
-        levelMaxPro.setText("Pro+: " + initialMainData.getHardPlusQuizCount());
+        welcomeText.setText("Welcome to Quiz Mind\nMr/Ms " + initialAppPayload.getUserDetailsDTO().getUsername());
 
-        ScoreHistoryDisplay historyDisplay = initialMainData.getScoreHistoryDisplay();
+        totalQuiz.setText("Total quiz: " + initialAppPayload.getTotalQuizAttempts());
+        avgScore.setText("Avg Score: " + initialAppPayload.getAvgScore());
+        levelEasy.setText("Easy: " + initialAppPayload.getEasyQuizCount());
+        levelMedium.setText("Medium: " + initialAppPayload.getMediumQuizCount());
+        levelHard.setText("Hard: " + initialAppPayload.getHardQuizCount());
+        levelMaxPro.setText("Pro+: " + initialAppPayload.getHardPlusQuizCount());
+
+        ScoreHistoryDisplay historyDisplay = initialAppPayload.getScoreHistoryDisplay();
         if (historyDisplay != null) {
             hisTopic.setText(historyDisplay.getTopic_sub());
             hisDescription.setText(historyDisplay.getShort_des());
@@ -105,6 +107,32 @@ public class MainActivity extends AppCompatActivity {
             histQLevel.setText(historyDisplay.getLevel());
             hisTestFeedback.setText(historyDisplay.getFeedback());
         }
+    }
+
+
+    private void getTestReviewData(){
+        historyUiDatasource.getTestReviewData(new MyDataResponseCallBack<TestReview>() {
+            @Override
+            public void onSuccess(TestReview data) {
+                Intent intent = new Intent(MainActivity.this,TestReviewActivity.class);
+                intent.putExtra("testReview",data);
+                startActivity(intent);
+
+                finish();
+            }
+
+            @Override
+            public void onError(int errorCode, String massage) {
+                Toast.makeText(MainActivity.this,
+                        "Error: "+errorCode+" "+massage,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(MainActivity.this,
+                        t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }, initialAppPayload.getScoreHistoryDisplay().getQuizHistoryId());
     }
 
     // ── Navigation ────────────────────────────────────────────
@@ -138,6 +166,13 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("Cancel", null)
                         .show()
         );
+
+        histReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getTestReviewData();
+            }
+        });
     }
 
     // ── Views ─────────────────────────────────────────────────
@@ -146,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         testStartBtn      = findViewById(R.id.testInitiateBtn);
         historyDisBtn     = findViewById(R.id.historyBtn);
         logoutBtn         = findViewById(R.id.logoutBtn);
+        histReview        = findViewById(R.id.histReview);
 
         welcomeText       = findViewById(R.id.welcomeText);
         totalQuiz         = findViewById(R.id.totalQuiz);

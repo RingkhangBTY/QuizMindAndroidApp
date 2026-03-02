@@ -32,9 +32,7 @@ public class HomeUiDatasource {
             @Override
             public void onResponse(Call<InitialAppPayload> call, Response<InitialAppPayload> response) {
                 if (response.isSuccessful() && response.body() != null) {
-
                     callBack.onSuccess(response.body());
-
                 } else if (response.code() == 401) {
                     Toast.makeText(context,
                             "Session expired. Please login again.", Toast.LENGTH_SHORT).show();

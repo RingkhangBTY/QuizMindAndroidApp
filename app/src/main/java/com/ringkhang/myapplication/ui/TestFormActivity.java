@@ -46,8 +46,6 @@ public class TestFormActivity extends AppCompatActivity implements InitialUISetU
         setInitialListeners();
 
         testDatasource = new TestDatasource(TestFormActivity.this);
-
-
     }
 
     public void getTestDetails() {
@@ -105,6 +103,7 @@ public class TestFormActivity extends AppCompatActivity implements InitialUISetU
 
                         Intent intent = new Intent(TestFormActivity.this, TestActivity.class);
                         intent.putExtra("quizDetails", questionDetails);
+                        intent.putExtra("userTestFormInput",userTestInput);
                         startActivity(intent);
                     }
 
@@ -131,7 +130,7 @@ public class TestFormActivity extends AppCompatActivity implements InitialUISetU
         testStartBtn = findViewById(R.id.startTestBtn);
 
         subjectInput = findViewById(R.id.subjectInput);
-        topicInput = findViewById(R.id.subjectInput);
+        topicInput = findViewById(R.id.topicInput);
         numberOfQuestions = findViewById(R.id.numberOfQuestions);
 
         quizLevel = findViewById(R.id.quizLevel);
@@ -141,9 +140,6 @@ public class TestFormActivity extends AppCompatActivity implements InitialUISetU
     public void setInitialListeners() {
         testStartBtn.setOnClickListener(v->{
             getTestDetails();
-            Intent intent = new Intent(TestFormActivity.this,TestActivity.class);
-            intent.putExtra("quizDetails",questionDetails);
-            startActivity(intent);
         });
     }
 }

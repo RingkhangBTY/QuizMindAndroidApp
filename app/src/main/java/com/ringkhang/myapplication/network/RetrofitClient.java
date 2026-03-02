@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://192.168.1.6:8080/";
+    private static final String BASE_URL = "http://192.168.1.2:8080/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getInstance(Context context) {
@@ -47,7 +47,6 @@ public class RetrofitClient {
                     return chain.proceed(request);
                 })
 
-                // ✅ "Connection: close" — tells server not to reuse the TCP connection
                 // This prevents stale connection issues after Tomcat restarts
                 .addInterceptor(chain -> {
                     Request request = chain.request().newBuilder()
@@ -58,12 +57,12 @@ public class RetrofitClient {
 
                 .addInterceptor(logging)
 
-                // ✅ Timeouts — app won't hang forever waiting on dead server
+                //Timeouts — app won't hang forever waiting on dead server
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
 
-                // ✅ Auto retry on connection failure
+                //Auto retry on connection failure
                 .retryOnConnectionFailure(true)
 
                 .build();

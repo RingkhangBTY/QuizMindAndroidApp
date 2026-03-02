@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -15,9 +16,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.ringkhang.myapplication.DTO.QuestionsSubmitDTO;
 import com.ringkhang.myapplication.R;
 import com.ringkhang.myapplication.adapters.QuestionsVpAdapter;
+import com.ringkhang.myapplication.data.MyDataResponseCallBack;
+import com.ringkhang.myapplication.data.TestDatasource;
 import com.ringkhang.myapplication.models_DTO.QuestionDetails;
+import com.ringkhang.myapplication.models_DTO.SubmitQuizRequest;
+import com.ringkhang.myapplication.models_DTO.TestReview;
+import com.ringkhang.myapplication.models_DTO.UserInForQuizTest;
 
 import java.util.ArrayList;
 
@@ -30,6 +37,9 @@ public class TestActivity extends AppCompatActivity {
 
     private QuestionsVpAdapter adapter;
     private ArrayList<QuestionDetails> questionList = new ArrayList<>();
+    private TestReview testReview;
+
+    private TestDatasource testDatasource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,8 @@ public class TestActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        testDatasource = new TestDatasource(TestActivity.this);
 
         initViews();
         setQuestions();
@@ -129,66 +141,87 @@ public class TestActivity extends AppCompatActivity {
                     .setNegativeButton("Cancel", null)
                     .show();
         } else {
-            goToResult();
+            submitTest();
+//            goToResult();
         }
+    }
+
+    private void submitTest() {
+        MyDataResponseCallBack<TestReview> callBack = new MyDataResponseCallBack<TestReview>() {
+            @Override
+            public void onSuccess(TestReview data) {
+                testReview = data;
+                goToResult();
+            }
+
+            @Override
+            public void onError(int errorCode, String massage) {
+                Toast.makeText(TestActivity.this,
+                        "Error: "+errorCode+" Massage: "+massage,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(TestActivity.this,
+                        "Error: "+t.getCause(),Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        SubmitQuizRequest submitQuizRequest = new SubmitQuizRequest();
+        submitQuizRequest.setUserInput(
+                (UserInForQuizTest) getIntent().getSerializableExtra("userTestFormInput")
+        );
+        submitQuizRequest.setQuestionsSubmitDTO(buildSubmitList());
+        testDatasource.submitQuiz(callBack,submitQuizRequest);
+    }
+
+    /**
+     * Converts each QuestionDetails into QuestionsSubmitDTO
+     * and binds the user's selected answer from the adapter's userAnswers[]
+     */
+    private ArrayList<QuestionsSubmitDTO> buildSubmitList() {
+        int[] userAnswers = adapter.getUserAnswers();
+        ArrayList<QuestionsSubmitDTO> list = new ArrayList<>();
+
+        for (int i = 0; i < questionList.size(); i++) {
+            QuestionDetails q = questionList.get(i);
+
+            QuestionsSubmitDTO dto = new QuestionsSubmitDTO();
+            dto.setQuestion(q.getQuestion());
+            dto.setOptionA(q.getOptionA());
+            dto.setOptionB(q.getOptionB());
+            dto.setOptionC(q.getOptionC());
+            dto.setOptionD(q.getOptionD());
+            dto.setAnswer(q.getAnswer());
+            dto.setExplanation(q.getExplanation());
+
+            // Map int index → actual option String
+            // -1 means skipped → userAnswer stays null
+            String userAnswer = null;
+            switch (userAnswers[i]) {
+                case 0: userAnswer = q.getOptionA(); break;
+                case 1: userAnswer = q.getOptionB(); break;
+                case 2: userAnswer = q.getOptionC(); break;
+                case 3: userAnswer = q.getOptionD(); break;
+            }
+            dto.setUserAnswer(userAnswer);
+
+            list.add(dto);
+        }
+
+        return list;
     }
 
     private void goToResult() {
         int[] userAnswers = adapter.getUserAnswers();
-        // TODO: pass to ResultActivity
-        // Intent intent = new Intent(this, ResultActivity.class);
-        // intent.putExtra("userAnswers", userAnswers);
-        // startActivity(intent);
-        // finish();
-
         Intent intent = new Intent(this, TestReviewActivity.class);
-        intent.putExtra("userAnswers", adapter.getUserAnswers());
+        intent.putExtra("testReview",testReview);
         startActivity(intent);
         finish();
     }
 
     private void setQuestions() {
-        questionList.add(new QuestionDetails(
-                "What happens if a private method in a superclass has a method with the exact same signature in its subclass?",
-                "A compile-time error occurs because private methods cannot be overridden.",
-                "The subclass method will be called via polymorphism if accessed through a superclass reference.",
-                "The subclass method is a new, unrelated method specific to the subclass, not an override.",
-                "A runtime error (NoSuchMethodError) will be thrown when attempting to invoke it polymorphically.",
-                "The subclass method is a new, unrelated method specific to the subclass, not an override.",
-                "Private methods are not inherited by subclasses. Therefore, a method in a subclass with the same signature as a private method in its superclass is considered a completely new and independent method for the subclass, not an override. Overriding applies only to inherited methods."
-        ));
-        questionList.add(new QuestionDetails(
-                "Which access modifier allows members to be accessed from anywhere within the same package and also by subclasses, even if those subclasses are in a different package?",
-                "private",
-                "No modifier (default/package-private)",
-                "protected",
-                "public",
-                "protected",
-                "The protected access modifier grants access to members within the same package and to all subclasses, regardless of their package location."
-        ));
-        questionList.add(new QuestionDetails(
-                "Consider the following Java code snippet:\ntry {\n    System.out.print(\"A\");\n    throw new NullPointerException();\n} catch (ArithmeticException e) {\n    System.out.print(\"B\");\n} catch (RuntimeException e) {\n    System.out.print(\"C\");\n} finally {\n    System.out.print(\"D\");\n}\nSystem.out.print(\"E\");\nWhat will be the output?",
-                "ACDE", "ABDE", "ADE", "ACD",
-                "ACDE",
-                "The code first prints 'A'. Then, a NullPointerException is thrown. This is caught by catch (RuntimeException e), printing 'C'. The finally block prints 'D'. Then 'E' is printed."
-        ));
-        questionList.add(new QuestionDetails(
-                "Which statement best describes a key difference between Java interfaces and abstract classes?",
-                "A class can extend multiple abstract classes but can only implement one interface.",
-                "An interface can declare instance variables, while an abstract class cannot.",
-                "A class can implement multiple interfaces but can only extend one abstract class.",
-                "Abstract classes support true multiple inheritance of implementation, unlike interfaces.",
-                "A class can implement multiple interfaces but can only extend one abstract class.",
-                "Java supports multiple inheritance of type (through interfaces) but not multiple inheritance of implementation."
-        ));
-        questionList.add(new QuestionDetails(
-                "Given the following Java code:\nString s1 = \"Hello\";\nString s2 = s1.concat(\" World\");\nString s3 = s1;\ns1 = s1.toUpperCase();\nSystem.out.println(s1 + \", \" + s2 + \", \" + s3);\nWhat will be the output?",
-                "HELLO, Hello World, HELLO",
-                "HELLO, HELLO World, HELLO",
-                "HELLO, Hello World, Hello",
-                "Hello, Hello World, Hello",
-                "HELLO, Hello World, Hello",
-                "Strings in Java are immutable. s3 still points to the original \"Hello\". s1 is reassigned to \"HELLO\"."
-        ));
+        questionList = (ArrayList<QuestionDetails>) getIntent()
+                .getSerializableExtra("quizDetails");
     }
 }

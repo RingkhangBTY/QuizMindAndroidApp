@@ -4,70 +4,88 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ringkhang.myapplication.R;
-import com.ringkhang.myapplication.DTO.HistoryDTO;
 import com.ringkhang.myapplication.models_DTO.ScoreHistoryDisplay;
 
 import java.util.ArrayList;
 
-public class HistoryDisplayAdapter extends RecyclerView.Adapter<HistoryDisplayAdapter.MyHistoryDisViewHolder> {
+public class HistoryDisplayAdapter extends RecyclerView.Adapter<HistoryDisplayAdapter.HistoryViewHolder> {
 
-    private ArrayList<ScoreHistoryDisplay> historyArrayList;
-    private Context context;
+    public interface OnItemActionListener {
+        void onAction(ScoreHistoryDisplay item);
+    }
 
-    public HistoryDisplayAdapter(ArrayList<ScoreHistoryDisplay> historyArrayList, Context context) {
-        this.historyArrayList = historyArrayList;
-        this.context = context;
+    private final ArrayList<ScoreHistoryDisplay> data;
+    private final Context context;
+    private final OnItemActionListener onReviewClick;
+//    private final OnItemActionListener onTestAgainClick;
+
+    public HistoryDisplayAdapter(ArrayList<ScoreHistoryDisplay> data,
+                                 Context context,
+                                 OnItemActionListener onReviewClick) {
+        this.data            = data;
+        this.context         = context;
+        this.onReviewClick   = onReviewClick;
+//        this.onTestAgainClick = onTestAgainClick;
     }
 
     @NonNull
     @Override
-    public MyHistoryDisViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.activity_history_row,parent,false);
-        return new MyHistoryDisViewHolder(v);
+    public HistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.activity_history_row, parent, false);
+        return new HistoryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHistoryDisViewHolder holder, int position) {
-        ScoreHistoryDisplay history = historyArrayList.get(position);
+    public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
+        ScoreHistoryDisplay item = data.get(position);
 
-        holder.topic.setText(history.getTopic_sub());
-        holder.description.setText(history.getShort_des());
-        holder.feedback.setText(history.getFeedback());
-        holder.level.setText(history.getLevel());
+        holder.hisTopic.setText(item.getTopic_sub());
+        holder.hisDateTime.setText(item.getTime_stamp());
+        holder.hisDescription.setText(item.getShort_des());
+        holder.histTotalQuestion.setText(String.valueOf(item.getTotal_question()));
+        holder.hisCorrectAns.setText(String.valueOf(item.getCorrect_ans()));
+        holder.hisTestScore.setText(item.getTest_score() + "%");
+        holder.histQLevel.setText(item.getLevel());
+        holder.hisTestFeedback.setText(item.getFeedback());
 
-        holder.total.setText(String.valueOf(history.getTotal_question()));
-        holder.correct.setText(String.valueOf(history.getCorrect_ans()));
-        holder.score.setText(String.valueOf(history.getTest_score()));
-
-        holder.dateTime.setText(history.getTime_stamp());
+        // ✅ Buttons are in the item layout — wire them here
+        holder.btnReview.setOnClickListener(v -> {
+            if (onReviewClick != null) onReviewClick.onAction(item);
+        });
+//
+//        holder.btnTestAgain.setOnClickListener(v -> {
+//            if (onTestAgainClick != null) onTestAgainClick.onAction(item);
+//        });
     }
 
     @Override
-    public int getItemCount() {
-        return historyArrayList.size();
-    }
+    public int getItemCount() { return data.size(); }
 
-    public static class MyHistoryDisViewHolder extends RecyclerView.ViewHolder{
-        TextView topic,description,dateTime,total,correct,score,level,feedback;
-        public MyHistoryDisViewHolder(@NonNull View itemView) {
+    public static class HistoryViewHolder extends RecyclerView.ViewHolder {
+        TextView hisTopic, hisDateTime, hisDescription;
+        TextView histTotalQuestion, hisCorrectAns, hisTestScore, histQLevel, hisTestFeedback;
+        Button btnReview, btnTestAgain;
+
+        public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            topic = itemView.findViewById(R.id.hisTopic);
-            description = itemView.findViewById(R.id.hisDescription);
-            feedback = itemView.findViewById(R.id.hisTestFeedback);
-            level = itemView.findViewById(R.id.histQLevel);
-
-            total = itemView.findViewById(R.id.histTotalQuestion);
-            score = itemView.findViewById(R.id.hisTestScore);
-            correct = itemView.findViewById(R.id.hisCorrectAns);
-
-            dateTime = itemView.findViewById(R.id.hisDateTime);
+            hisTopic          = itemView.findViewById(R.id.hisTopic);
+            hisDateTime       = itemView.findViewById(R.id.hisDateTime);
+            hisDescription    = itemView.findViewById(R.id.hisDescription);
+            histTotalQuestion = itemView.findViewById(R.id.histTotalQuestion);
+            hisCorrectAns     = itemView.findViewById(R.id.hisCorrectAns);
+            hisTestScore      = itemView.findViewById(R.id.hisTestScore);
+            histQLevel        = itemView.findViewById(R.id.histQLevel);
+            hisTestFeedback   = itemView.findViewById(R.id.hisTestFeedback);
+            btnReview         = itemView.findViewById(R.id.histReview);
+//            btnTestAgain      = itemView.findViewById(R.id.hisReTest);
         }
     }
 }
